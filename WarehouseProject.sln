@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35506.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseApi", "WarehouseApi\WarehouseApi.csproj", "{84F2A336-7749-47C8-BE3B-30505C0D4122}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseAppConsole", "WarehouseAppConsole\WarehouseAppConsole.csproj", "{FB8079AD-5C09-4515-9292-D30EA5AF018C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseAsp", "WarehouseAsp\WarehouseAsp.csproj", "{4CCE3248-AD62-413F-802F-4CCCF9EF0077}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{84F2A336-7749-47C8-BE3B-30505C0D4122}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84F2A336-7749-47C8-BE3B-30505C0D4122}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84F2A336-7749-47C8-BE3B-30505C0D4122}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84F2A336-7749-47C8-BE3B-30505C0D4122}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB8079AD-5C09-4515-9292-D30EA5AF018C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB8079AD-5C09-4515-9292-D30EA5AF018C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB8079AD-5C09-4515-9292-D30EA5AF018C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB8079AD-5C09-4515-9292-D30EA5AF018C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CCE3248-AD62-413F-802F-4CCCF9EF0077}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CCE3248-AD62-413F-802F-4CCCF9EF0077}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CCE3248-AD62-413F-802F-4CCCF9EF0077}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CCE3248-AD62-413F-802F-4CCCF9EF0077}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
