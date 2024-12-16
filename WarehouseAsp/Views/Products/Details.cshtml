@@ -1,4 +1,4 @@
-﻿@model WarehouseAsp.Models.Product
+﻿@model WarehouseAsp.Models.PaginetedResult<WarehouseAsp.Models.Product>
 
 @{
     ViewBag.Title = "Details";
@@ -11,40 +11,39 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+            @Html.DisplayNameFor(model => model.Results[0].Title)
+        </dt>yy
 
         <dd>
-            @Html.DisplayFor(model => model.Title)
+            @Html.DisplayFor(model => model.Results[0].Title)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Results[0].Description)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Description)
+            @Html.DisplayFor(model => model.Results[0].Description)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor(model => model.Results[0].Price)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Price)
+            @Html.DisplayFor(model => model.Results[0].Price)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Images)
+            @Html.DisplayNameFor(model => model.Results[0].Images)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Images)
+            @Html.DisplayFor(model => model.Results[0].Images)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "List")
+    @Html.ActionLink("Back to List", "List", new { page = Model.page, pageSize = Model.pageSize, search = Model.search })
 </p>

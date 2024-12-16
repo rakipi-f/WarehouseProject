@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using System.Web.UI;
 using Newtonsoft.Json;
 using RestSharp;
 using WarehouseAsp.Dtos;
@@ -18,21 +20,35 @@ namespace WarehouseAsp.Controllers
     {
 
         // GET: Products
-        public async Task<ActionResult> List()
+        public async Task<ActionResult> List(int page=1, int pageSize = 10, string search="")
         {
+            
             string BaseUrl = WebConfigurationManager.AppSettings["BaseUrl"];
             var client = new RestClient($"{BaseUrl}/Products");
             var request = new RestRequest();
-            var response = await client.GetAsync<List<ProductDto>>(request);
+            
+            if (search != "")
+                page = 1;
+            request.AddQueryParameter("page", page.ToString());
+            request.AddQueryParameter("pagesize", pageSize.ToString());
+            request.AddQueryParameter("search", search.ToString());
+
+            var response = await client.GetAsync<PaginetedResult<ProductDto>>(request);
+
+
             return View(response);
         }
 
-        public async Task<ActionResult> Details(int id)
+        public async Task<ActionResult> Details(int id, int page=1, int pageSize = 10, string search = "")
         {
+            
             string BaseUrl = WebConfigurationManager.AppSettings["BaseUrl"];
             var client = new RestClient($"{BaseUrl}/Products/{id}");
             var request = new RestRequest();
-            var response = await client.GetAsync<Product>(request);
+            request.AddQueryParameter("page", page.ToString());
+            request.AddQueryParameter("pagesize", pageSize.ToString());
+            var response = await client.GetAsync<PaginetedResult<Product>>(request);
+            response.search = search;
 
             return View(response);
         }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WarehouseAsp.Dtos.ProductDto>
+﻿@model WarehouseAsp.Models.PaginetedResult<WarehouseAsp.Dtos.ProductDto>
 
 @{
     ViewBag.Title = "List";
@@ -6,36 +6,47 @@
 
 <h2>List</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@using (Html.BeginForm("List", "Products", FormMethod.Get))
+{
+    <div class="d-flex">
+        @Html.HiddenFor(model => model.page)
+        <input class="form-control" name="search" value="@Model.search" placeholder="Cerca o inserisci l'id del prodotto">
+        <input type="submit" value="Cerca" class="btn btn-primary" />
+    </div>
+
+}
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.Results[0].Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor(model => model.Results[0].Price)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
+    @foreach (var item in Model.Results)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
 
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.Id, Page = Model.page, PageSize = Model.pageSize, search = Model.search })
+            </td>
+        </tr>
+    }
 
 </table>
+<ul class="pagination">
+    @for (int i = 1; i <= Model.Pages; i++)
+    {
+        <li class="page-item @( i==Model.page ? "active" : "" )"> @Html.ActionLink(i.ToString(), "List", new { page = i, pageSize = Model.pageSize, search = Model.search }, new { @class = "page-link" }) </li>
+    }
+</ul>

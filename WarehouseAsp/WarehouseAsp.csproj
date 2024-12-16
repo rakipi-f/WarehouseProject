@@ -157,6 +157,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\PaginetedResult.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\WarehouseMovement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -198,6 +199,23 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\scripts\bootstrap.esm.js" />
+    <Content Include="Scripts\scripts\bootstrap.esm.min.js" />
+    <Content Include="Scripts\scripts\bootstrap.js" />
+    <Content Include="Scripts\scripts\bootstrap.min.js" />
+    <None Include="Scripts\scripts\jquery-3.7.0.intellisense.js" />
+    <Content Include="Scripts\scripts\jquery-3.7.0.js" />
+    <Content Include="Scripts\scripts\jquery-3.7.0.min.js" />
+    <Content Include="Scripts\scripts\jquery-3.7.0.slim.js" />
+    <Content Include="Scripts\scripts\jquery-3.7.0.slim.min.js" />
+    <None Include="Scripts\scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\scripts\jquery.validate.js" />
+    <Content Include="Scripts\scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -214,6 +232,14 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Products\List.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Scripts\scripts\bootstrap.bundle.js.map" />
+    <Content Include="Scripts\scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\scripts\bootstrap.esm.js.map" />
+    <Content Include="Scripts\scripts\bootstrap.esm.min.js.map" />
+    <Content Include="Scripts\scripts\bootstrap.js.map" />
+    <Content Include="Scripts\scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\scripts\jquery-3.7.0.min.map" />
+    <Content Include="Scripts\scripts\jquery-3.7.0.slim.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -170,6 +170,7 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\WarehouseMovementsController.cs" />
     <Compile Include="Dtos\DtoMappingProfile.cs" />
+    <Compile Include="Dtos\PaginetedResultDto.cs" />
     <Compile Include="Dtos\ProductDto.cs" />
     <Compile Include="Dtos\WarehouseMovementDto.cs" />
     <Compile Include="Global.asax.cs">

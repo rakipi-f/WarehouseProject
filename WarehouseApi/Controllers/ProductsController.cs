@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.UI;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using WarehouseApi.Dtos;
 using WarehouseApi.Models;
 
@@ -28,20 +31,53 @@ namespace WarehouseApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> Get()
+        public async Task<IHttpActionResult> Get(int page = 1, int pagesize =10, string search="")
         {
-
+        
             //ottengo la lista dei prodotti
-            var products = await context.Products
+            var query = context.Products
+                .ProjectTo<ProductDto>(mc);
+
+            int number; 
+            bool isNumber = int.TryParse(search, out number);
+            IQueryable<ProductDto> filteredQuery;
+
+
+
+            //qui controllo se search è un numero allora filtro per id altrimenti filtro per titolo e descrizione
+            if (string.IsNullOrEmpty(search)) 
+                filteredQuery = query;
+            else if (isNumber) 
+                filteredQuery = query.Where(w => w.Id == number);
+            else
+                filteredQuery = query.Where(w => w.Title.Contains(search) || w.Description.Contains(search));
+
+            int totalRecordCount = await filteredQuery
+                .CountAsync();
+
+            var results = await filteredQuery
+                .OrderBy(a => a.Id)
+                .Skip((page - 1) * pagesize)
+                .Take(pagesize)
                 .ToListAsync();
-          
-            return Ok(mapper.Map<List<ProductDto>>(products));
+
+            return Ok(new PaginetedResultDto<ProductDto>
+            {
+                Results = results,
+                Search = search,
+                Page = page,
+                PageSize = pagesize,
+                Pages = (int)Math.Ceiling((double)totalRecordCount / pagesize)
+
+            });
+
+
         }
 
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<IHttpActionResult> Get(int id)
+        public async Task<IHttpActionResult> Get(int id, int page=1, int pagesize=10, string search="")
         {
      
             var product = await context.Products
@@ -51,7 +87,14 @@ namespace WarehouseApi.Controllers
             {
                 return NotFound();
             }
-            return Ok(mapper.Map<ProductDto>(product));
+            return Ok(new PaginetedResultDto<ProductDto>
+            {
+                Results = new List<ProductDto> { mapper.Map<ProductDto>(product) },
+                Search = search,
+                PageSize = pagesize,
+                Page = page,
+
+            });
         }
 
 
