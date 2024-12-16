@@ -1,25 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
+using System.Data.Entity;
 using AutoMapper;
 using WarehouseApi.Dtos;
 using WarehouseApi.Models;
 
 namespace WarehouseApi.Controllers
 {
-    [RoutePrefix("api/WarehouseMovements")]
-    public class WarehouseMovementsController : ApiController
+    [RoutePrefix("api/Stocks")]
+    public class StocksController : ApiController
     {
         private WarehouseEntities context;
         private MapperConfiguration mc;
         private Mapper mapper;
 
-        public WarehouseMovementsController()
+        public StocksController()
         {
             context = new WarehouseEntities();
             mc = new MapperConfiguration(cfg => cfg.AddProfile<DtoMappingProfile>());
@@ -27,13 +26,11 @@ namespace WarehouseApi.Controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
-        public async Task<IHttpActionResult> Get( int id )
+        public async Task<IHttpActionResult> Get()
         {
 
             //ottengo gli ultimi 5 movimenti come lista
             var warehouseMovement = await context.WarehouseMovements
-                .Where(a => a.ProductId == id)
                 .OrderByDescending(wm => wm.Date)
                 .ToListAsync();
             // controllo se l'id è valido o non esiste
@@ -43,7 +40,7 @@ namespace WarehouseApi.Controllers
             {
                 return NotFound();
             }
-            
+
 
             // calcolo la giacenza
             var giacenza = warehouseMovement.Sum(a => a.Qty);

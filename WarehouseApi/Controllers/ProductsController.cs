@@ -74,7 +74,6 @@ namespace WarehouseApi.Controllers
 
         }
 
-
         [HttpGet]
         [Route("{id}")]
         public async Task<IHttpActionResult> Get(int id, int page=1, int pagesize=10, string search="")
@@ -96,9 +95,6 @@ namespace WarehouseApi.Controllers
 
             });
         }
-
-
-
         protected override void Dispose(bool disposing)
         {
             context.Dispose();

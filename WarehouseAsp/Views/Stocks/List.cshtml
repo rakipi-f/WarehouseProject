@@ -1,0 +1,62 @@
+﻿@model WarehouseAsp.Models.PaginetedResult<WarehouseAsp.Models.Stocks>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+@using (Html.BeginForm("List", "Stocks", FormMethod.Get))
+{
+    <div class="d-flex">
+        @Html.HiddenFor(model => model.page)
+        <input class="form-control" name="search" value="@Model.search" placeholder="Cerca o inserisci l'id del prodotto">
+        <input type="submit" value="Cerca" class="btn btn-primary" />
+    </div>
+
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Results[0].Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Results[0].Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Results[0].Stock)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Results)
+    {
+        var rowClass = item.Stock < 0 ? "negative-stock" : "";
+            <tr class="@rowClass">
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stock)
+            </td>
+            <td>
+                <span style="display:inline-block; padding:5px 10px; border-radius:5px; 
+                    background-color: @(item.Stock < 0 ? "red" : "#ccffcc");
+                    color:@(item.Stock < 0 ? "#ffffff" : "green");"> 
+                    @(item.Stock < 0 ? "Non disponibile" : "Disponibile")
+                </span>
+            </td>
+        </tr>
+    }
+
+</table>
+<ul class="pagination">
+    @for (int i = 1; i <= Model.Pages; i++)
+    {
+        <li class="page-item @( i==Model.page ? "active" : "" )"> @Html.ActionLink(i.ToString(), "List", new { page = i, pageSize = Model.pageSize, search = Model.search, previousSearch = ViewBag.PreviousSearch }, new { @class = "page-link" }) </li>
+    }
+</ul>

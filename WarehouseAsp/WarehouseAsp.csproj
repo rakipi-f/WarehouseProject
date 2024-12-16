@@ -153,12 +153,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\StocksController.cs" />
     <Compile Include="Dtos\ProductDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\PaginetedResult.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\Stocks.cs" />
+    <Compile Include="Models\ViewModelConsole.cs" />
     <Compile Include="Models\WarehouseMovement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -240,11 +243,11 @@
     <Content Include="Scripts\scripts\bootstrap.min.js.map" />
     <Content Include="Scripts\scripts\jquery-3.7.0.min.map" />
     <Content Include="Scripts\scripts\jquery-3.7.0.slim.min.map" />
+    <Content Include="Views\Stocks\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Movements\" />
-    <Folder Include="Views\Stocks\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

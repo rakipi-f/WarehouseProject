@@ -12,6 +12,6 @@ namespace WarehouseAsp.Models
         public int ProductId { get; set; }
         public double Qty { get; set; }
 
-        public virtual Product Product { get; set; }
+        //public virtual Product Product { get; set; }
     }
 }

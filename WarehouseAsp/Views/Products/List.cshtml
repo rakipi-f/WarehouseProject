@@ -47,6 +47,6 @@
 <ul class="pagination">
     @for (int i = 1; i <= Model.Pages; i++)
     {
-        <li class="page-item @( i==Model.page ? "active" : "" )"> @Html.ActionLink(i.ToString(), "List", new { page = i, pageSize = Model.pageSize, search = Model.search }, new { @class = "page-link" }) </li>
+        <li class="page-item @( i==Model.page ? "active" : "" )"> @Html.ActionLink(i.ToString(), "List", new { page = i, pageSize = Model.pageSize, pages = Model.Pages, search = Model.search, previousSearch = ViewBag.PreviousSearch }, new { @class = "page-link" }) </li>
     }
 </ul>
