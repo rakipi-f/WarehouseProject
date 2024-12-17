@@ -18,6 +18,12 @@ select,
 textarea {
     max-width: 280px;
 }
-.negative-stock {
-    background-color: #ffcccc;
+.red.lighten-4 {
+    background-color: #ffebee !important;
+}
+.valign-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }

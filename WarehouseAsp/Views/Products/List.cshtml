@@ -4,49 +4,56 @@
     ViewBag.Title = "List";
 }
 
-<h2>List</h2>
+<h2>Products</h2>
 
-@using (Html.BeginForm("List", "Products", FormMethod.Get))
+@using (Html.BeginForm("List", "Products", FormMethod.Get, new { @class = "container" }))
 {
-    <div class="d-flex">
+    <div class="row">
         @Html.HiddenFor(model => model.page)
-        <input class="form-control" name="search" value="@Model.search" placeholder="Cerca o inserisci l'id del prodotto">
-        <input type="submit" value="Cerca" class="btn btn-primary" />
+        <div class="input-field col s6">
+            <input id="search" type="text" name="search" value="@Model.search" class="validate">
+            <label for="search">Cerca o inserisci l'id del prodotto</label>
+        </div>
+        <div class="col s2">
+            <button type="submit" class="btn waves-effect waves-light">Cerca</button>
+        </div>
     </div>
-
 }
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Results[0].Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Results[0].Price)
-        </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model.Results)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
+@if (Model.Results != null && Model.Results.Any())
+{
+    <table class="highlight">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Results[0].Title)</th>
+                <th>@Html.DisplayNameFor(model => model.Results[0].Price)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Results)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                    <td>@Html.ActionLink("Details", "Details", new { id = item.Id, Page = Model.page, PageSize = Model.pageSize, search = Model.search }, new { @class = "btn-small waves-effect waves-light" })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.Id, Page = Model.page, PageSize = Model.pageSize, search = Model.search })
-            </td>
-        </tr>
-    }
-
-</table>
-<ul class="pagination">
-    @for (int i = 1; i <= Model.Pages; i++)
-    {
-        <li class="page-item @( i==Model.page ? "active" : "" )"> @Html.ActionLink(i.ToString(), "List", new { page = i, pageSize = Model.pageSize, pages = Model.Pages, search = Model.search, previousSearch = ViewBag.PreviousSearch }, new { @class = "page-link" }) </li>
-    }
-</ul>
+    <ul class="pagination">
+        @for (int i = 1; i <= Model.Pages; i++)
+        {
+            <li class="waves-effect @(i == Model.page ? "active" : "")">
+                @Html.ActionLink(i.ToString(), "List", new { page = i, pageSize = Model.pageSize, pages = Model.Pages, search = Model.search, previousSearch = ViewBag.PreviousSearch }, new { @class = "page-link" })
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <div class="card-panel red lighten-4">
+        <span class="red-text text-darken-4">Nessun risultato trovato per il termine di ricerca: "@Model.search".</span>
+    </div>
+}

@@ -4,46 +4,38 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Product Details</h2>
 
-<div>
-    <h4>Product</h4>
+<div class="container">
+    <h4>
+        <p>@Html.DisplayFor(model => model.Results[0].Title)</p>
+    </h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Results[0].Title)
-        </dt>yy
+    <div class="row">
+        <div class="col s12">
+            <strong>@Html.DisplayNameFor(model => model.Results[0].Description)</strong>
+            <p>@Html.DisplayFor(model => model.Results[0].Description)</p>
+        </div>
+        <div class="col s12">
+            <strong>@Html.DisplayNameFor(model => model.Results[0].Price)</strong>
+            <p>@Html.DisplayFor(model => model.Results[0].Price)</p>
+        </div>
+        <div class="col s12">
+            @{
+                var images = Model.Results[0].Images.Split(';');
+            }
+            <strong>@Html.DisplayNameFor(model => model.Results[0].Images)</strong>
+            <p>
+                @foreach (var image in images)
+                {
+                    <img src="@Url.Content("https://storage.googleapis.com/e802024pw/" + image)" alt="Immagine" style="width: 100px; height: auto;">
+                }
+            </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.Results[0].Title)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Results[0].Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Results[0].Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Results[0].Price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Results[0].Price)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Results[0].Images)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Results[0].Images)
-        </dd>
-
-    </dl>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Back to List", "List", new { page = Model.page, pageSize = Model.pageSize, search = Model.search })
+<p class="center-align">
+    @Html.ActionLink("Back to List", "List", new { page = Model.page, pageSize = Model.pageSize, search = Model.search }, new { @class = "btn waves-effect waves-light" })
 </p>

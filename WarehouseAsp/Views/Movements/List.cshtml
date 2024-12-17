@@ -1,0 +1,99 @@
+﻿@model WarehouseAsp.Models.PaginetedResult<WarehouseAsp.Models.WarehouseMovement>
+
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+@using (Html.BeginForm("List", "Movements", FormMethod.Get, new { @class = "container" }))
+{
+    <div class="row">
+        @Html.HiddenFor(model => model.page)
+        <div class="input-field col s6">
+            <input id="search" type="text" name="search" value="@Model.search" class="validate">
+            <label for="search">Cerca o inserisci l'id del prodotto</label>
+        </div>
+        <div class="col s2">
+            <button type="submit" class="btn waves-effect waves-light">Cerca</button>
+        </div>
+    </div>
+}
+
+@if (Model.Results != null && Model.Results.Any())
+{
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Results[0].Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Results[0].ProductId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Results[0].Qty)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Results)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Qty)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn-small waves-effect waves-light" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn-small waves-effect waves-light" })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+        int totalPages = Model.Pages;
+        int currentPage = Model.page;
+        int pageSize = 5; // Numero di pagine visualizzate
+
+        int startPage = (currentPage - 1) / pageSize * pageSize + 1;
+        int endPage = Math.Min(startPage + pageSize - 1, totalPages);
+
+    <ul class="pagination">
+        @if (startPage > 1)
+        {
+            <li class="waves-effect">
+                @Html.ActionLink("«", "List", new { page = startPage - 1, pageSize = Model.pageSize, pages = Model.Pages, search = Model.search, previousSearch = ViewBag.PreviousSearch }, new { @class = "page-link" })
+            </li>
+        }
+
+        @for (int i = startPage; i <= endPage; i++)
+        {
+            <li class="waves-effect @(i == currentPage ? "active" : "")">
+                @Html.ActionLink(i.ToString(), "List", new { page = i, pageSize = Model.pageSize, pages = Model.Pages, search = Model.search, previousSearch = ViewBag.PreviousSearch }, new { @class = "page-link" })
+            </li>
+        }
+
+        @if (endPage < totalPages)
+        {
+            <li class="waves-effect">
+                @Html.ActionLink("»", "List", new { page = endPage + 1, pageSize = Model.pageSize, pages = Model.Pages, search = Model.search, previousSearch = ViewBag.PreviousSearch }, new { @class = "page-link" })
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <div class="card-panel red lighten-4">
+        <span class="red-text text-darken-4">Nessun risultato trovato per il termine di ricerca: "@Model.search".</span>
+    </div>
+}

@@ -13,13 +13,13 @@ using WarehouseApi.Models;
 namespace WarehouseApi.Controllers
 {
     [RoutePrefix("api/WarehouseMovements")]
-    public class WarehouseMovementsConsoleController : ApiController
+    public class MovementsConsoleController : ApiController
     {
         private WarehouseEntities context;
         private MapperConfiguration mc;
         private Mapper mapper;
 
-        public WarehouseMovementsConsoleController()
+        public MovementsConsoleController()
         {
             context = new WarehouseEntities();
             mc = new MapperConfiguration(cfg => cfg.AddProfile<DtoMappingProfile>());
@@ -31,12 +31,12 @@ namespace WarehouseApi.Controllers
         public async Task<IHttpActionResult> Get( int id )
         {
 
-            //ottengo gli ultimi 5 movimenti come lista
+
             var warehouseMovement = await context.WarehouseMovements
                 .Where(a => a.ProductId == id)
                 .OrderByDescending(wm => wm.Date)
                 .ToListAsync();
-            // controllo se l'id è valido o non esiste
+
 
 
             if (warehouseMovement == null || !warehouseMovement.Any())
