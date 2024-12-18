@@ -15,7 +15,9 @@
             <label for="search">Cerca o inserisci l'id del prodotto</label>
         </div>
         <div class="col s2">
-            <button type="submit" class="btn waves-effect waves-light">Cerca</button>
+            <button type="submit" class="btn waves-effect waves-light">
+                <i class="fas fa-search" style="font-size: 14px;"></i> Cerca
+            </button>
         </div>
     </div>
 }
@@ -36,7 +38,9 @@
                 <tr>
                     <td>@Html.DisplayFor(modelItem => item.Title)</td>
                     <td>@Html.DisplayFor(modelItem => item.Price)</td>
-                    <td>@Html.ActionLink("Details", "Details", new { id = item.Id, Page = Model.page, PageSize = Model.pageSize, search = Model.search }, new { @class = "btn-small waves-effect waves-light" })</td>
+                    <td>
+                        @Html.Raw("<a href='" + Url.Action("Details", new { id = item.Id, Page = Model.page, PageSize = Model.pageSize, search = Model.search }) + "' class='btn btn-primary' style='display: inline-block;'><i class='fas fa-info-circle'style=\"font-size: 14px;\" ></i> Details</a>")
+                    </td>
                 </tr>
             }
         </tbody>

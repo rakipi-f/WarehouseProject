@@ -27,3 +27,12 @@ textarea {
     align-items: center;
     height: 100%;
 }
+
+
+.create {
+    background-color: blue; /* Colore azzurro */
+    color: #fff; /* Colore testo bianco */
+}
+
+
+

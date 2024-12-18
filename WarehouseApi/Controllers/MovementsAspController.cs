@@ -73,6 +73,58 @@ namespace WarehouseApi.Controllers
             });
         }
 
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IHttpActionResult> Get(int id)
+        {
+            var warehouseMovement = await context.WarehouseMovements
+                .Where(a => a.Id == id)
+                .ProjectTo<WarehouseMovementDto>(mc)
+                .FirstOrDefaultAsync();
+            return Ok(warehouseMovement);
+        }
+
+        [HttpPost]
+        [Route("")]
+        public async Task<IHttpActionResult> Post(WarehouseMovementDto warehouseMovementDto)
+        {
+            var warehouseMovement = mapper.Map<WarehouseMovement>(warehouseMovementDto);
+            context.WarehouseMovements.Add(warehouseMovement);
+            await context.SaveChangesAsync();
+            return Ok();
+
+        }
+
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IHttpActionResult> Put(int id, WarehouseMovementDto warehouseMovementDto)
+        {
+            var warehouseMovement = await context.WarehouseMovements.FirstOrDefaultAsync(q => q.Id == id);
+            if (warehouseMovement == null)
+                return NotFound();
+            warehouseMovement.Date = warehouseMovementDto.Date;
+            warehouseMovement.ProductId = warehouseMovementDto.ProductId;
+            warehouseMovement.Qty = warehouseMovementDto.Qty;
+            await context.SaveChangesAsync();
+            return Ok();
+        }
+
+
+
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IHttpActionResult> Delete(int id)
+        {
+            var warehouseMovement = await context.WarehouseMovements.FirstOrDefaultAsync(q => q.Id == id);
+            if (warehouseMovement == null)
+                return NotFound();
+            context.WarehouseMovements.Remove(warehouseMovement);
+            await context.SaveChangesAsync();
+            return Ok();
+        }
+
 
 
 

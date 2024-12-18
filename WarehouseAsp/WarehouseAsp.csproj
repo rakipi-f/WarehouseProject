@@ -261,6 +261,8 @@
     <Content Include="Views\Stocks\List.cshtml" />
     <Content Include="Views\Movements\List.cshtml" />
     <Content Include="Views\Movements\Create.cshtml" />
+    <Content Include="Views\Movements\Delete.cshtml" />
+    <Content Include="Views\Movements\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

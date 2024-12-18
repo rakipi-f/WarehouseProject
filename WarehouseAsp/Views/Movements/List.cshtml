@@ -5,7 +5,7 @@
     ViewBag.Title = "List";
 }
 
-<h2>List</h2>
+<h2>Movements</h2>
 
 @using (Html.BeginForm("List", "Movements", FormMethod.Get, new { @class = "container" }))
 {
@@ -16,7 +16,9 @@
             <label for="search">Cerca o inserisci l'id del prodotto</label>
         </div>
         <div class="col s2">
-            <button type="submit" class="btn waves-effect waves-light">Cerca</button>
+            <button type="submit" class="btn waves-effect waves-light">
+                <i class="fas fa-search" style="font-size: 14px;" ></i> Cerca
+            </button>
         </div>
     </div>
 }
@@ -24,7 +26,8 @@
 @if (Model.Results != null && Model.Results.Any())
 {
         <p>
-            @Html.ActionLink("Create New", "Create")
+            @Html.ActionLink("New movement", "Create", null, new { @class = "btn btn-small waves-effect waves-light", style = "background-color: #29A9FF; " })
+
         </p>
     <table class="table">
         <tr>
@@ -53,9 +56,10 @@
                     @Html.DisplayFor(modelItem => item.Qty)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn-small waves-effect waves-light" })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn-small waves-effect waves-light" })
+                    @Html.Raw("<a href='" + Url.Action("Edit", new { id = item.Id }) + "' class='btn btn-primary' style='display: inline-block;'><i class='fas fa-edit'style=\"font-size: 14px;\" ></i> Edit</a>")
+                    @Html.Raw("<a href='" + Url.Action("Delete", new { id = item.Id }) + "' class='btn btn-danger' style='display: inline-block;'><i class='fas fa-trash'style=\"font-size: 14px;\" ></i> Delete</a>")
                 </td>
+
             </tr>
         }
 
