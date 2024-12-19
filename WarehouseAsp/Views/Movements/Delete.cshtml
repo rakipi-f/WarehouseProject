@@ -36,11 +36,18 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
 <div class="form-actions no-color">
-    <input type="submit" value="Delete" class="btn btn-default" style="background-color: #FF4D17; margin-bottom: 10px " />
+    <div class="col-md-offset-2 col-md-10">
+        <button type="submit" class="btn " style="display: inline-block; background-color: #FF6B6B; margin-bottom: 10px;">
+            <i class="fas fa-trash" style="font-size: 14px;"></i> Delete
+        </button>
+
+
+    </div>
     @Html.ActionLink("Back to List", "List", null, new { @class = "btn btn-small waves-effect waves-light", style = " margin-bottom: 10px;" })
 </div>
     }

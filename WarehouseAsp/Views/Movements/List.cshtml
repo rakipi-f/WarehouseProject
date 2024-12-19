@@ -14,10 +14,9 @@
         <div class="input-field col s6">
             <input id="search" type="text" name="search" value="@Model.search" class="validate">
             <label for="search">Cerca o inserisci l'id del prodotto</label>
-        </div>
-        <div class="col s2">
-            <button type="submit" class="btn waves-effect waves-light">
-                <i class="fas fa-search" style="font-size: 14px;" ></i> Cerca
+   
+            <button type="submit" class="btn waves-effect waves-light" style="background-color: #00796b; color: white">
+                <i class="fas fa-search" style="font-size: 14px;"></i> Cerca
             </button>
         </div>
     </div>
@@ -26,7 +25,7 @@
 @if (Model.Results != null && Model.Results.Any())
 {
         <p>
-            @Html.ActionLink("New movement", "Create", null, new { @class = "btn btn-small waves-effect waves-light", style = "background-color: #29A9FF; " })
+            @Html.Raw("<a href='" + Url.Action("Create") + "' class='btn' style=  'background-color: #00796b; color: white; display: inline-block;'><i class='fas fa-plus'style=\"font-size: 14px;\" ></i> New movement</a>")
 
         </p>
     <table class="table">
@@ -56,8 +55,8 @@
                     @Html.DisplayFor(modelItem => item.Qty)
                 </td>
                 <td>
-                    @Html.Raw("<a href='" + Url.Action("Edit", new { id = item.Id }) + "' class='btn btn-primary' style='display: inline-block;'><i class='fas fa-edit'style=\"font-size: 14px;\" ></i> Edit</a>")
-                    @Html.Raw("<a href='" + Url.Action("Delete", new { id = item.Id }) + "' class='btn btn-danger' style='display: inline-block;'><i class='fas fa-trash'style=\"font-size: 14px;\" ></i> Delete</a>")
+                    @Html.Raw("<a href='" + Url.Action("Edit", new { id = item.Id }) + "' class='btn' style=  'background-color: #FFEF6C; display: inline-block;'><i class='fas fa-edit'style=\"font-size: 14px;\" ></i> Edit</a>")
+                    @Html.Raw("<a href='" + Url.Action("Delete", new { id = item.Id }) + "' class='btn' style=' background-color:#FF6B6B; display: inline-block;'><i class='fas fa-trash'style=\"font-size: 14px;\" ></i> Delete</a>")
                 </td>
 
             </tr>

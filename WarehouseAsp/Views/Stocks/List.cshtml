@@ -13,9 +13,8 @@
         <div class="input-field col s6">
             <input id="search" type="text" name="search" value="@Model.search" class="validate">
             <label for="search">Cerca o inserisci l'id del prodotto</label>
-        </div>
-        <div class="col s2">
-            <button type="submit" class="btn waves-effect waves-light">
+
+            <button type="submit" class="btn waves-effect waves-light" style="background-color: #00796b; color: white">
                 <i class="fas fa-search" style="font-size: 14px;"></i> Cerca
             </button>
         </div>
@@ -28,7 +27,6 @@
         <thead>
             <tr>
                 <th>@Html.DisplayNameFor(model => model.Results[0].Title)</th>
-                <th>@Html.DisplayNameFor(model => model.Results[0].Price)</th>
                 <th>@Html.DisplayNameFor(model => model.Results[0].Stock)</th>
                 <th></th>
             </tr>
@@ -39,7 +37,6 @@
                 var rowClass = item.Stock < 0 ? "red lighten-4" : "";
                 <tr class="@rowClass">
                     <td>@Html.DisplayFor(modelItem => item.Title)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Price)</td>
                     <td>@Html.DisplayFor(modelItem => item.Stock)</td>
                     <td>
                         <span class="badge new

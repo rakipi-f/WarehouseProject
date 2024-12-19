@@ -1,47 +1,61 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+
+
     <link rel="stylesheet" href="~/Content/bootstrap.css" />
     <link rel="stylesheet" href="~/Content/Site.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/css")
 
-    <style>
-        .dropdown-content {
-            width: 150px; /* Imposta la larghezza desiderata */
-        }
-    </style>
+
 </head>
 
 <body>
-    <nav>
-        <div class="nav-wrapper teal darken-1">
-            <div class="container">
-                @Html.ActionLink("Warehouse Management", "Index", "Home", new { area = "" }, new { @class = "brand-logo" })
 
-                <a href="#" class="dropdown-trigger right" data-target="dropdown-menu"><i class="material-icons">MENU'</i></a>
+    <!-- Barra superiore -->
+    <nav>
+        <div class="nav-wrapper">
+            <div class="container">
+                <a href="javascript:void(0);" class="menu-icon" id="menu-toggle"><i class="fas fa-bars"></i></a>
+
+                <ul class="right">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                </ul>
             </div>
         </div>
     </nav>
 
-    <ul id="dropdown-menu" class="dropdown-content">
-        <li>@Html.ActionLink("Products", "List", "Products")</li>
-        <li>@Html.ActionLink("Stocks", "List", "Stocks")</li>
-        <li>@Html.ActionLink("Movements", "List", "Movements")</li>
-    </ul>
+    <!-- Menu Laterale -->
+    <div class="side-nav" id="side-nav">
+        <ul>
+            <li>@Html.ActionLink("Products", "List", "Products")</li>
+            <li>@Html.ActionLink("Stocks", "List", "Stocks")</li>
+            <li>@Html.ActionLink("Movements", "List", "Movements")</li>
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <li>@Html.ActionLink("Login", "Login", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
+            }
+            else
+            {
+                <li> @Html.ActionLink("Logout", "Logout", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
+            }
+        </ul>
+    </div>
 
-    <div class="container">
+    <!-- Contenuto principale -->
+    <div class="content" id="content">
         @RenderBody()
     </div>
 
-    <footer class="page-footer teal darken-1">
+    <!-- Footer -->
+    <footer class="page-footer">
         <div class="container">
             <div class="row">
                 <div class="col l6 s12">
@@ -60,15 +74,41 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var dropdownElems = document.querySelectorAll('.dropdown-trigger');
-            var dropdownInstances = M.Dropdown.init(dropdownElems, {
-                constrainWidth: false // serve per permettere alla tendina di essere piu grossa del tasto menu
-            });
 
+    <script>
+        // JavaScript per aprire/chiudere il menu laterale
+        document.getElementById('menu-toggle').addEventListener('click', function () {
+            var sideNav = document.getElementById('side-nav');
+            var content = document.getElementById('content');
+            var menuIcon = document.getElementById('menu-toggle');
+
+            // Controlliamo se il menu è già aperto
+            if (sideNav.style.left === "0px") {
+                sideNav.style.left = "-250px";  // Nascondiamo il menu
+                content.style.marginLeft = "0";  // Ripristiniamo la posizione del contenuto
+                menuIcon.classList.remove('hidden'); // Mostra l'icona del menu
+            } else {
+                sideNav.style.left = "0";  // Mostriamo il menu
+                content.style.marginLeft = "250px";  // Diamo spazio per il menu laterale
+                menuIcon.classList.add('hidden'); // Nascondi l'icona del menu
+            }
         });
+
+        // Aggiungiamo l'ascoltatore per il clic fuori dal menu
+        document.addEventListener('click', function (event) {
+            var sideNav = document.getElementById('side-nav');
+            var menuIcon = document.getElementById('menu-toggle');
+
+            // Controlliamo se il clic è avvenuto fuori dal menu laterale e fuori dall'icona del menu
+            if (!sideNav.contains(event.target) && !menuIcon.contains(event.target)) {
+                sideNav.style.left = "-250px";  // Nascondiamo il menu
+                document.getElementById('content').style.marginLeft = "0";  // Ripristiniamo la posizione del contenuto
+                menuIcon.classList.remove('hidden');  // Mostriamo l'icona del menu
+            }
+        });
+
+
     </script>
+
 </body>
 </html>
-

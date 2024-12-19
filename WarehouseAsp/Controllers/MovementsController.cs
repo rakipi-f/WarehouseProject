@@ -11,6 +11,7 @@ using WarehouseAsp.Models;
 
 namespace WarehouseAsp.Controllers
 {
+    [Authorize]
     [RoutePrefix("Movements")]
     public class MovementsController : Controller
     {

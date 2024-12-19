@@ -34,5 +34,70 @@ textarea {
     color: #fff; /* Colore testo bianco */
 }
 
+/* Styling per il layout del menu laterale */
+.side-nav {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    height: 100%;
+    width: 250px;
+    background-color: #00796b;
+    padding-top: 50px;
+    z-index: 1000; /* Mantiene il menu sopra altri contenuti */
+    transition: left 0.3s ease; /* Animazione per l'apertura/chiusura */
+}
+
+    .side-nav a {
+        display: block;
+        color: white;
+        padding: 15px;
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+        .side-nav a:hover {
+            background-color: #004d40;
+        }
+
+    .side-nav .logout {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background-color: #004d40;
+        text-align: center;
+    }
+
+.content {
+    margin-left: 0;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+.nav-wrapper {
+    background-color: #004d40;
+}
+
+    .nav-wrapper .brand-logo {
+        color: white;
+    }
+
+.page-footer {
+    background-color: #00796b;
+}
+
+
+.menu-icon {
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+    position: absolute;
+    left: 15px;
+    top: 0px;
+    z-index: 1001;
+}
+
+    .menu-icon.hidden {
+        display: none;
+    }
 
 

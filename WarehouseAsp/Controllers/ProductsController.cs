@@ -14,7 +14,7 @@ using WarehouseAsp.Models;
 
 namespace WarehouseAsp.Controllers
 {
-    
+    [Authorize]
     [RoutePrefix("Products")]
     public class ProductsController : Controller
     {

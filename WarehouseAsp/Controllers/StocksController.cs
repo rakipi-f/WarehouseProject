@@ -12,6 +12,7 @@ using WarehouseAsp.Models;
 
 namespace WarehouseAsp.Controllers
 {
+    [Authorize]
     [RoutePrefix("Stocks")]
     public class StocksController : Controller
     {
@@ -54,7 +55,6 @@ namespace WarehouseAsp.Controllers
                 {
                     Id = product.Id,
                     Title = product.Title,
-                    Price = product.Price,
                     Stock = movements.Giacenza
                 });
             }
