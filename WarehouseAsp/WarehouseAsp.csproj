@@ -177,11 +177,13 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MovementsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\StocksController.cs" />
     <Compile Include="Dtos\ProductDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChartView.cs" />
     <Compile Include="Models\Credential.cs">
       <DependentUpon>Model2.tt</DependentUpon>
     </Compile>
@@ -310,6 +312,7 @@
     <Content Include="Views\Movements\Delete.cshtml" />
     <Content Include="Views\Movements\Edit.cshtml" />
     <Content Include="Views\Auth\Login.cshtml" />
+    <Content Include="Views\Statistics\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

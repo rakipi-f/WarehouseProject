@@ -12,6 +12,7 @@ namespace WarehouseApi.Dtos
         public System.DateTime Date { get; set; }
         public int ProductId { get; set; }
         public double Qty { get; set; }
+        public string ProductName { get; set; }
 
         //public virtual ProductDto Product { get; set; }
     }

@@ -63,13 +63,20 @@ namespace WarehouseAppConsole
 
 
                         Console.WriteLine("Giacenza totale: " + movements.Giacenza + "\n");
-
+                        for(int i = 0; i < 5; i++)
+                        {
+                            Console.WriteLine("Id movimento: " + movements.Movements[i].Id);
+                            Console.WriteLine("Data: " + movements.Movements[i].Date);
+                            Console.WriteLine("Quantità: " + movements.Movements[i].Qty + "\n");
+                        }
+                        /*
                         foreach (var item in movements.Movements)
                         {
                             Console.WriteLine("Id movimento: " + item.Id);
                             Console.WriteLine("Data: " + item.Date);
                             Console.WriteLine("Quantità: " + item.Qty + "\n");
                         }
+                        */
                     }
 
                     else

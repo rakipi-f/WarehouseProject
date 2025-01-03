@@ -28,37 +28,46 @@ namespace WarehouseApi.Controllers
             mapper = new Mapper(mc);
         }
 
+        //get list
         [HttpGet]
         [Route("")]
+
         public async Task<IHttpActionResult> Get(int page = 1, int pagesize = 10, string search = "")
         {
-            var query = context.WarehouseMovements
-            .ProjectTo<WarehouseMovementDto>(mc);
+            var query = from wm in context.WarehouseMovements
+                        join p in context.Products on wm.ProductId equals p.Id
+                        select new WarehouseMovementDto
+                        {
+                            Id = wm.Id,
+                            ProductId = wm.ProductId,
+                            ProductName = p.Title,
+                            Date = wm.Date,
+                            Qty = wm.Qty
+                        };
 
             int number;
             bool isNumber = int.TryParse(search, out number);
             IQueryable<WarehouseMovementDto> filteredQuery;
-            filteredQuery = query;
 
-            if (isNumber)
+            if (string.IsNullOrEmpty(search))
+                filteredQuery = query;
+            else if (isNumber)
                 filteredQuery = query.Where(w => w.ProductId == number);
+            else
+                filteredQuery = query.Where(w => w.ProductName.Contains(search));
 
-
-
-            int TotalRecordCount = await filteredQuery
-            .CountAsync();
+            int TotalRecordCount = await filteredQuery.CountAsync();
 
             var warehouseMovement = await filteredQuery
-            .OrderByDescending(wm => wm.Date)
-            .Skip((page - 1) * pagesize)
-            .Take(pagesize)
-            .ToListAsync();
+                .OrderByDescending(wm => wm.Date)
+                .Skip((page - 1) * pagesize)
+                .Take(pagesize)
+                .ToListAsync();
 
-            // controllo se l'id è valido o non esiste
             var results = new List<WarehouseMovementDto>();
             if (warehouseMovement != null || warehouseMovement.Any())
             {
-                results = mapper.Map<List<WarehouseMovementDto>>(warehouseMovement);
+                results = warehouseMovement; // Già mappato nella query
             }
 
             return Ok(new PaginetedResultDto<WarehouseMovementDto>
@@ -68,11 +77,11 @@ namespace WarehouseApi.Controllers
                 PageSize = pagesize,
                 Page = page,
                 Pages = (int)Math.Ceiling((double)TotalRecordCount / pagesize)
-
-
             });
         }
 
+
+        //get 1 movement
         [HttpGet]
         [Route("{id}")]
         public async Task<IHttpActionResult> Get(int id)
@@ -84,18 +93,22 @@ namespace WarehouseApi.Controllers
             return Ok(warehouseMovement);
         }
 
+        //create
         [HttpPost]
         [Route("")]
         public async Task<IHttpActionResult> Post(WarehouseMovementDto warehouseMovementDto)
         {
             var warehouseMovement = mapper.Map<WarehouseMovement>(warehouseMovementDto);
+            var product = await context.Products.FirstOrDefaultAsync(q => q.Id == warehouseMovement.ProductId);
+            if (product == null)
+                return NotFound();
             context.WarehouseMovements.Add(warehouseMovement);
             await context.SaveChangesAsync();
             return Ok();
 
         }
 
-
+        //edit
         [HttpPut]
         [Route("{id}")]
         public async Task<IHttpActionResult> Put(int id, WarehouseMovementDto warehouseMovementDto)
@@ -112,7 +125,7 @@ namespace WarehouseApi.Controllers
 
 
 
-
+        //delete
         [HttpDelete]
         [Route("{id}")]
         public async Task<IHttpActionResult> Delete(int id)

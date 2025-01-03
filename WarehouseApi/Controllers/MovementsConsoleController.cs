@@ -49,7 +49,8 @@ namespace WarehouseApi.Controllers
             var giacenza = warehouseMovement.Sum(a => a.Qty);
 
             var FirstMovements = warehouseMovement
-                .Take(5)
+                //.Take(5)
+                //lo tolgo per rendere l'api utilizzabile per le statistiche
                 .ToList();
 
 

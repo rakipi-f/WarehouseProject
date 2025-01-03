@@ -85,19 +85,3 @@ textarea {
     background-color: #00796b;
 }
 
-
-.menu-icon {
-    font-size: 30px;
-    cursor: pointer;
-    color: white;
-    position: absolute;
-    left: 15px;
-    top: 0px;
-    z-index: 1001;
-}
-
-    .menu-icon.hidden {
-        display: none;
-    }
-
-

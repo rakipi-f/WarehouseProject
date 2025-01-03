@@ -11,8 +11,60 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/css")
+
+    <style>
+        .user-initial {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 50%;
+            background-color: #0094ff;
+            color: white;
+            text-align: center;
+            margin-right: 1px;
+        }
+
+        .guest-icon {
+            display: inline-block;
+            width: 20px;
+            height: 10px;
+            line-height: 20px;
+            border-radius: 50%;
+            background-color: #bdc3c7;
+            color: white;
+            text-align: center;
+            margin-right: 1px;
+        }
+
+        .nav-right {
+            float: right;
+        }
+
+        .guest-button {
+            background: none;
+            border: none;
+            color: inherit;
+            font: none;
+            cursor: pointer;
+            outline: inherit;
+        }
+
+            .guest-button:focus {
+                background: none;
+                box-shadow: none;
+                outline: none;
+            }
+
+            .guest-button:active {
+                background: none;
+                box-shadow: none;
+                outline: none;
+            }
+    </style>
 
 
 </head>
@@ -25,9 +77,27 @@
             <div class="container">
                 <a href="javascript:void(0);" class="menu-icon" id="menu-toggle"><i class="fas fa-bars"></i></a>
 
-                <ul class="right">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <ul class="nav-right">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="grey-text text-lighten-4">
+                            <span class="user-initial">@User.Identity.Name.Substring(0, 1).ToUpper()</span>
+                            @User.Identity.Name
+                        </li>
+                    }
+                    else
+                    {
+                <li class="grey-text text-lighten-4">
+                    <form action="@Url.Action("Login", "Auth")" method="get" style="display:inline;">
+                        <button type="submit" class="guest-button">
+                            <span><i class="fas fa-user"></i></span>
+                            Guest
+                        </button>
+                    </form>
+                </li>
+                    }
                 </ul>
+
             </div>
         </div>
     </nav>
@@ -35,9 +105,11 @@
     <!-- Menu Laterale -->
     <div class="side-nav" id="side-nav">
         <ul>
+            <li> <a href="@Url.Action("Index", "Home")"> <i class="fas fa-home"></i> Home </a> </li>
             <li>@Html.ActionLink("Products", "List", "Products")</li>
             <li>@Html.ActionLink("Stocks", "List", "Stocks")</li>
             <li>@Html.ActionLink("Movements", "List", "Movements")</li>
+            <li>@Html.ActionLink("Statistics", "List", "Statistics")</li>
             @if (!User.Identity.IsAuthenticated)
             {
                 <li>@Html.ActionLink("Login", "Login", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
@@ -60,7 +132,12 @@
             <div class="row">
                 <div class="col l6 s12">
                     <h5 class="white-text">The Warehouse Management</h5>
-                    <p class="grey-text text-lighten-4">Gestisci prodotti e movimenti in modo efficiente.</p>
+                    <ul>
+                        <li class="grey-text text-lighten-4">Contatti:</li>
+                        <li class="grey-text text-lighten-4">Tel: 3478903561 </li>
+                        <li class="grey-text text-lighten-4">E-mail: prova@gmail.com</li>
+                    </ul>
+               
                 </div>
             </div>
         </div>

@@ -34,6 +34,9 @@
                 @Html.DisplayNameFor(model => model.Results[0].Date)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Results[0].ProductName)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Results[0].ProductId)
             </th>
             <th>
@@ -47,6 +50,9 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ProductId)

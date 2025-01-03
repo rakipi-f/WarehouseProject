@@ -169,7 +169,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MovementsAspController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
-    <Compile Include="Controllers\StocksController.cs" />
     <Compile Include="Controllers\MovementsConsoleController.cs" />
     <Compile Include="Dtos\DtoMappingProfile.cs" />
     <Compile Include="Dtos\PaginetedResultDto.cs" />
@@ -287,9 +286,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Movements\" />
-    <Folder Include="Views\Products\" />
-    <Folder Include="Views\Stocks\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\bootstrap.min.js.map" />

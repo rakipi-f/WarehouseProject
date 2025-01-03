@@ -1,62 +1,140 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Welcome to Warehouse Management";
 }
 
-<main>
-    <section class="row">
-        <div class="col s12 m6 l4">
-            <div class="card">
-                <div class="card-image">
-                    <img src="~/Images/features.png" alt="Movements Image">
-                </div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">Products<i class="material-icons right">+</i></span>
-                </div>
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">Products<i class="material-icons right">X</i></span>
-                    <p>A view of all product present in the warehouse with the possibility to see their details.</p>
-                </div>
-                <div class="card-action">
-                    <a href="@Url.Action("List", "Products")" class="btn waves-effect waves-light">Go to Products</a>
-                </div>
+<style>
+    .welcome-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        background-color: #f5f5f5;
+    }
+
+    .welcome-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+        .welcome-header h1 {
+            color: #00796b;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .welcome-header p {
+            color: #555;
+            font-size: 1.2em;
+        }
+
+    .cards-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .card {
+        width: 300px;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+    .card-image img {
+        width: 50px; /* Riduci la larghezza dell'immagine */
+        height: 50px; /* Riduci l'altezza dell'immagine */
+        object-fit: contain; /* Mantieni le proporzioni dell'immagine */
+        margin: 10px auto; /* Centra l'immagine */
+        display: block; /* Assicurati che l'immagine sia un blocco */
+    }
+
+    .card-content {
+        padding: 20px;
+        text-align: center;
+    }
+
+        .card-content h3 {
+            margin-top: 0;
+            color: #00796b;
+        }
+
+        .card-content p {
+            color: #777;
+        }
+
+    .card-action {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+        background-color: #f0f0f0;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+        .card-action a {
+            color: white;
+            background-color: #00796b;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+
+            .card-action a:hover {
+                background-color: #004d40;
+            }
+</style>
+
+<div class="welcome-container">
+    <div class="welcome-header">
+        <h1>Welcome to Warehouse Management</h1>
+        <p>Manage your products and movements efficiently.</p>
+    </div>
+    <div class="cards-container">
+        <div class="card">
+            <div class="card-image">
+                <img src="~/Images/features.png" alt="Products Image">
+            </div>
+            <div class="card-content">
+                <h3>Products</h3>
+                <p>View and manage all products in the warehouse with ease.</p>
+            </div>
+            <div class="card-action">
+                <a href="@Url.Action("List", "Products")">Go to Products</a>
             </div>
         </div>
-        <div class="col s12 m6 l4">
-            <div class="card">
-                <div class="card-image">
-                    <img src="~/Images/distribution.png" alt="Movements Image">
-                </div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">Movements<i class="material-icons right">+</i></span>
-                </div>
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">Movements<i class="material-icons right">X</i></span>
-                    <p>See all the movement from the most recent and also you can:</p>
-                    <p>Create new movement</p>
-                    <p>Modify a movement</p>
-                    <p>Delete a movement</p>
-                </div>
-                <div class="card-action">
-                    <a href="@Url.Action("List", "Movements")" class="btn waves-effect waves-light">Go to Movements</a>
-                </div>
+        <div class="card">
+            <div class="card-image">
+                <img src="~/Images/distribution.png" alt="Movements Image">
+            </div>
+            <div class="card-content">
+                <h3>Movements</h3>
+                <p>Track and manage all warehouse movements efficiently.</p>
+            </div>
+            <div class="card-action">
+                <a href="@Url.Action("List", "Movements")">Go to Movements</a>
             </div>
         </div>
-        <div class="col s12 m6 l4">
-            <div class="card">
-                <div class="card-image">
-                    <img src="~/Images/in-stock.png" alt="Stocks Image">
-                </div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">Stocks<i class="material-icons right">+</i></span>
-                </div>
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">Stocks<i class="material-icons right">X</i></span>
-                    <p>Keep track of how many stock there are of each product.</p>
-                </div>
-                <div class="card-action">
-                    <a href="@Url.Action("List", "Stocks")" class="btn waves-effect waves-light">Go to Stocks</a>
-                </div>
+        <div class="card">
+            <div class="card-image">
+                <img src="~/Images/in-stock.png" alt="Stocks Image">
+            </div>
+            <div class="card-content">
+                <h3>Stocks</h3>
+                <p>Monitor stock levels and manage inventory effectively.</p>
+            </div>
+            <div class="card-action">
+                <a href="@Url.Action("List", "Stocks")">Go to Stocks</a>
             </div>
         </div>
-    </section>
-</main>
+    </div>
+</div>
+
+

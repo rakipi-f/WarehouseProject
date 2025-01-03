@@ -1,0 +1,86 @@
+﻿@using Newtonsoft.Json;
+@model List<WarehouseAsp.Models.ChartView>
+
+
+
+@{
+    ViewBag.Title = "Movements by Month";
+    var months = Model?.Select(m => m.Month).ToArray();
+    var stockLevels = Model?.Select(m => m.Movements.Sum(x => x.Qty)).ToArray();
+    var giacenzatot = Model?.Select(m => m.GiacenzaTot).ToArray();
+    var id = Model?.FirstOrDefault().Id;
+}
+
+<h2>Movements by Month for the product Id=@id</h2>
+
+@using (Html.BeginForm("Search", "Statistics", FormMethod.Get, new { @class = "container" }))
+{
+    <div class="row">
+        <div class="input-field col s6">
+            <input id="id" type="text" name="id" class="validate" placeholder="Inserisci l'id del prodotto" style="padding-top: 10px;">
+            <button type="submit" class="btn waves-effect waves-light" style="background-color: #00796b; color: white; margin-top: 20px;">
+                <i class="fas fa-search" style="font-size: 14px;"></i> Cerca
+            </button>
+        </div>
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="row">
+        <div class="col s12">
+            <div class="card-panel red lighten-2">
+                <span class="white-text">@ViewBag.ErrorMessage</span>
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model != null)
+{
+    <canvas id="stockChart" width="800" height="300"></canvas>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const labels = @Html.Raw(JsonConvert.SerializeObject(months));
+            const data = {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Movements for month',
+                        data: @Html.Raw(JsonConvert.SerializeObject(stockLevels)),
+                        borderColor: 'rgba(0, 0, 255, 1)',
+                        backgroundColor: 'rgba(0, 0, 255, 0.5)',
+                    },
+                    {
+                        label: 'Total Stock',
+                        data: @Html.Raw(JsonConvert.SerializeObject(giacenzatot)),
+                        borderColor: 'rgba(255, 0, 0, 1)',
+                        backgroundColor: 'rgba(255, 0, 0, 0.5)',
+                    }
+                ]
+            };
+
+            const config = {
+                type: 'bar',
+                data: data,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Movements by Month'
+                        }
+                    }
+                }
+            };
+
+            var ctx = document.getElementById('stockChart').getContext('2d');
+            new Chart(ctx, config);
+        });
+    </script>
+}
+

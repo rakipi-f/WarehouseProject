@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using RestSharp;
+using WarehouseAsp.Dtos;
 using WarehouseAsp.Models;
 
 namespace WarehouseAsp.Controllers
@@ -29,8 +30,11 @@ namespace WarehouseAsp.Controllers
             request.AddQueryParameter("page", page.ToString());
             request.AddQueryParameter("pagesize", pageSize.ToString());
             request.AddQueryParameter("search", search.ToString());
+            
             var response = await client.GetAsync<PaginetedResult<WarehouseMovement>>(request);
             ViewBag.PreviousSearch = search;
+
+
             return View(response);
         }
 
@@ -48,8 +52,15 @@ namespace WarehouseAsp.Controllers
             var client = new RestClient($"{BaseUrl}/Movements");
             var request = new RestRequest();
             request.AddJsonBody(entity);
-            var response = await client.PostAsync<WarehouseMovement>(request);
-            return RedirectToAction("List");
+            var response = await client.ExecutePostAsync(request);
+            // se viene restituito not found
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                ViewBag.ErrorMessage = "Id prodotto non esistente";
+                return View(entity);
+            }
+            else
+                return RedirectToAction("List");
 
         }
 
@@ -93,7 +104,7 @@ namespace WarehouseAsp.Controllers
             return View(response);
         }
 
-    
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
 

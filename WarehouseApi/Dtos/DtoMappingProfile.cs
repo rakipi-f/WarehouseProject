@@ -14,9 +14,6 @@ namespace WarehouseApi.Dtos
             CreateMap<WarehouseMovement, WarehouseMovementDto>();
             CreateMap<WarehouseMovementDto, WarehouseMovement>();
 
-                //.ForMember(d => d.ProductId, m => m.MapFrom(s => s.Product.Id))
-               // .ForMember(d => d.Product, m => m.Ignore());
-
             CreateMap<Product, ProductDto>();
             CreateMap<ProductDto, Product>();
         }
